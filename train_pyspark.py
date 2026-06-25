@@ -106,6 +106,17 @@ def build_and_train(input_csv, model_out):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
+        streamlit_context = (
+            "streamlit" in " ".join(sys.argv).lower()
+            or os.environ.get("STREAMLIT_SERVER_PORT") is not None
+        )
+        if streamlit_context:
+            # If Streamlit is pointed at this file by mistake, forward to the app entrypoint.
+            from app import main as run_streamlit_app
+
+            run_streamlit_app()
+            sys.exit(0)
+
         print("Usage: python train_pyspark.py <input_csv> [model_out_dir]")
         sys.exit(1)
 
