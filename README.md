@@ -21,7 +21,7 @@ streamlit run app.py
 
 ## Streamlit Cloud setup
 
-- Repository: `jessinai81-hash/Credit-Card`
+- Repository: `jessinai81-hash/Creditcardv2`
 - Main file path: `app.py`
 - Python version: default is fine
 - `requirements.txt` is used automatically
@@ -29,6 +29,7 @@ streamlit run app.py
 ## Optional: Run PySpark trainer
 
 ```powershell
+python -m pip install -r requirements-pyspark.txt
 python train_pyspark.py "Credit_Card_Approval_10000_70_30.csv" models/pyspark_rf_model
 ```
 
