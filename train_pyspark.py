@@ -1,18 +1,25 @@
-from pyspark.sql import SparkSession
-from pyspark.ml import Pipeline
-from pyspark.ml.feature import (
-    StringIndexer,
-    OneHotEncoder,
-    VectorAssembler,
-    Imputer,
-)
-from pyspark.ml.classification import RandomForestClassifier
-from pyspark.ml.evaluation import MulticlassClassificationEvaluator, BinaryClassificationEvaluator
 import sys
 import os
 
 
 def build_and_train(input_csv, model_out):
+    try:
+        from pyspark.sql import SparkSession
+        from pyspark.ml import Pipeline
+        from pyspark.ml.feature import (
+            StringIndexer,
+            OneHotEncoder,
+            VectorAssembler,
+            Imputer,
+        )
+        from pyspark.ml.classification import RandomForestClassifier
+        from pyspark.ml.evaluation import MulticlassClassificationEvaluator, BinaryClassificationEvaluator
+    except ModuleNotFoundError as exc:
+        raise RuntimeError(
+            "PySpark is not installed. Install optional dependencies with: "
+            "pip install -r requirements-pyspark.txt"
+        ) from exc
+
     spark = SparkSession.builder.appName("credit_card_approval").getOrCreate()
 
     df = (
